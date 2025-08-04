@@ -12,7 +12,7 @@ SESSION_SERVICE = DatabaseSessionService(db_url=DB_URL)
 
 INITIAL_STATE = {
     "user_name": "Rahul Dey",
-    "reminders": [],
+    REMINDERS: [],
 }
 
 async def get_session_id() -> str:
@@ -34,7 +34,8 @@ async def get_session_id() -> str:
 
     new_session = await SESSION_SERVICE.create_session(
         app_name=APP_NAME,
-        user_id=USER_ID
+        user_id=USER_ID,
+        state=INITIAL_STATE,
     )
     print(f"Created new session: {new_session.id}")
     return new_session.id
@@ -48,7 +49,7 @@ async def main() -> None:
     runner = Runner(
         agent=memory_agent,
         app_name=APP_NAME,
-        session_service=SESSION_SERVICE
+        session_service=SESSION_SERVICE,
     )
 
     # ===== PART 5: Interactive Conversation Loop =====
