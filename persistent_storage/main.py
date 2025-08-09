@@ -1,4 +1,5 @@
 import asyncio
+from dotenv import load_dotenv
 
 from google.adk import Runner
 from google.adk.sessions import DatabaseSessionService
@@ -6,6 +7,8 @@ from google.adk.sessions import DatabaseSessionService
 from constants import DB_URL, APP_NAME, USER_ID, REMINDERS
 from memory_agent.agent import get_memory_agent
 from utils import call_agent_async
+
+load_dotenv()
 
 # Using SQLITE Database for persistent storage
 SESSION_SERVICE = DatabaseSessionService(db_url=DB_URL)

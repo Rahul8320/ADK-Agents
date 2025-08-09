@@ -7,14 +7,12 @@ from memory_agent.prompt import MEMORY_AGENT_PROMPT
 
 MODEL = LiteLlm(model="ollama_chat/qwen3:1.7b")
 
+
 def get_memory_agent() -> Agent:
     return Agent(
         name="memory_agent",
         description="A start reminder agent with persistent memory",
         model=MODEL,
         instruction=MEMORY_AGENT_PROMPT,
-        tools=[
-            add_reminder,
-            view_reminders
-        ]
+        tools=[add_reminder, view_reminders],
     )
