@@ -3,6 +3,9 @@ from google.adk.models.lite_llm import LiteLlm
 
 from memory_agent.tools.view_reminders_tool import view_reminders
 from memory_agent.tools.add_reminder_tool import add_reminder
+from memory_agent.tools.update_reminder_tool import update_reminder
+from memory_agent.tools.delete_reminder_tool import delete_reminder
+from memory_agent.tools.update_user_name_tool import update_user_name
 from memory_agent.prompt import MEMORY_AGENT_PROMPT
 
 MODEL = LiteLlm(model="ollama_chat/qwen3:1.7b")
@@ -14,5 +17,11 @@ def get_memory_agent() -> Agent:
         description="A start reminder agent with persistent memory",
         model=MODEL,
         instruction=MEMORY_AGENT_PROMPT,
-        tools=[add_reminder, view_reminders],
+        tools=[
+            add_reminder,
+            view_reminders,
+            update_reminder,
+            delete_reminder,
+            update_user_name,
+        ],
     )
