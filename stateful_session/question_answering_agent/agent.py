@@ -18,5 +18,5 @@ question_answering_agent = Agent(
     name="question_answering_agent",
     model=MODEL,
     description="Question answering agent",
-    instruction=AGENT_PROMPT
+    instruction=AGENT_PROMPT,
 )

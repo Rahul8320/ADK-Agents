@@ -12,6 +12,7 @@ APP_NAME = "Rahul's Assistance"
 USER_ID = "rahul_dey"
 SESSION_ID = str(uuid.uuid4())
 
+
 async def main():
     # Create a new session to store state
     session_service_stateful = InMemorySessionService()
@@ -28,17 +29,14 @@ async def main():
 
     # Create a NEW session
     await session_service_stateful.create_session(
-        app_name=APP_NAME,
-        user_id=USER_ID,
-        session_id=SESSION_ID,
-        state=initial_state
+        app_name=APP_NAME, user_id=USER_ID, session_id=SESSION_ID, state=initial_state
     )
     print(f"New session created with ID: {SESSION_ID}")
 
     runner = Runner(
         agent=question_answering_agent,
         app_name=APP_NAME,
-        session_service=session_service_stateful
+        session_service=session_service_stateful,
     )
 
     new_message = types.Content(
@@ -46,9 +44,7 @@ async def main():
     )
 
     for event in runner.run(
-        user_id= USER_ID,
-        session_id= SESSION_ID,
-        new_message=new_message
+        user_id=USER_ID, session_id=SESSION_ID, new_message=new_message
     ):
         if event.is_final_response():
             if event.content and event.content.parts:
@@ -61,11 +57,15 @@ async def main():
 
     # Log final Session State
     print("============= Final Session State ==============")
-    for key, value in session.state.items():
+    for key, value in session.state.items() if session is not None else {}:
         print(f"{key}: {value}")
 
 
-if __name__=="__main__":
-    print("============== Starting the basic stateful session example ===================")
+if __name__ == "__main__":
+    print(
+        "============== Starting the basic stateful session example ==================="
+    )
     asyncio.run(main=main())
-    print("============== Completed the basic stateful session example =================")
+    print(
+        "============== Completed the basic stateful session example ================="
+    )
