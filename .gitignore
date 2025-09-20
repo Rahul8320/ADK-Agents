@@ -19,3 +19,7 @@ wheels/
 # Database Files
 **/.db
 **/*.db
+
+# Log files
+**/*.Log
+**/*.logs
